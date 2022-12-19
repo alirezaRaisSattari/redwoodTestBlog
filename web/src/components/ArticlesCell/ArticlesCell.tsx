@@ -25,10 +25,10 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({ articles }: CellSuccessProps<ArticlesQuery>) => {
   return (
-    <ul>
-      {articles.map((article) => {
-        return <Article key={article.id} article={article} />
-      })}
-    </ul>
+    <div className="space-y-10">
+      {articles.map((article) => (
+        <Article article={article} key={article.id} />
+      ))}
+    </div>
   )
 }

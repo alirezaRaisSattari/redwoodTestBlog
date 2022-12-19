@@ -11,10 +11,6 @@ const HomePage = () => {
       <>
         <ArticlesCell />
       </>
-      <p>
-        home
-        <Link to={routes.home()}>Home</Link>`
-      </p>
     </>
   )
 }
