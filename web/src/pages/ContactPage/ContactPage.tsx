@@ -7,6 +7,7 @@ import {
   FormError,
   Label,
   useForm,
+  ColorField,
 } from '@redwoodjs/forms'
 import { MetaTags, useMutation } from '@redwoodjs/web'
 import { toast, Toaster } from '@redwoodjs/web/dist/toast'
@@ -48,7 +49,6 @@ const ContactPage = () => {
           error={error}
           wrapperClassName="py-4 px-6 rounded-lg bg-red-100 text-red-700"
           listClassName="list-disc ml-4"
-          listItemClassName=""
         />
         <Label
           name="name"
@@ -63,7 +63,11 @@ const ContactPage = () => {
           className="border rounded-sm px-2 py-1 outline-none"
           errorClassName="border rounded-sm px-2 py-1 border-red-700 outline-none"
         />
-        <FieldError name="name" className="block text-red-700" />
+        <FieldError
+          name="name"
+          style={{ color: 'red' }}
+          className="block text-red-700"
+        />
 
         <Label
           name="email"
