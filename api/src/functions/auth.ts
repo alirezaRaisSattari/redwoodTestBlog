@@ -33,9 +33,9 @@ export const handler = async (
       // for security reasons you may want to be vague here rather than expose
       // the fact that the email address wasn't found (prevents fishing for
       // valid email addresses)
-      usernameNotFound: 'Username not found',
+      usernameNotFound: 'Email not found',
       // if the user somehow gets around client validation
-      usernameRequired: 'Username is required',
+      usernameRequired: 'Email is required',
     },
   }
 
@@ -57,7 +57,7 @@ export const handler = async (
 
     errors: {
       usernameOrPasswordMissing: 'Both username and password are required',
-      usernameNotFound: 'Username ${username} not found',
+      usernameNotFound: 'Email ${username} not found',
       // For security reasons you may want to make this the same as the
       // usernameNotFound error so that a malicious user can't use the error
       // to narrow down if it's the username or password that's incorrect
@@ -114,7 +114,7 @@ export const handler = async (
           email: username,
           hashedPassword: hashedPassword,
           salt: salt,
-          // name: userAttributes.name
+          name: 'alireza',
         },
       })
     },
@@ -129,7 +129,7 @@ export const handler = async (
     errors: {
       // `field` will be either "username" or "password"
       fieldMissing: '${field} is required',
-      usernameTaken: 'Username `${username}` already in use',
+      usernameTaken: 'Email `${username}` already in use',
     },
   }
 

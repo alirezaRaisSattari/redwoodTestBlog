@@ -1,22 +1,20 @@
-import type { ComponentStory } from '@storybook/react'
-
 import { Loading, Empty, Failure, Success } from './ArticlesCell'
 import { standard } from './ArticlesCell.mock'
 
 export const loading = () => {
-  return Loading ? <Loading /> : <></>
+  return Loading ? <Loading /> : null
 }
 
 export const empty = () => {
-  return Empty ? <Empty /> : <></>
+  return Empty ? <Empty /> : null
 }
 
-export const failure: ComponentStory<typeof Failure> = (args) => {
-  return Failure ? <Failure error={new Error('Oh no')} {...args} /> : <></>
+export const failure = () => {
+  return Failure ? <Failure error={new Error('Oh no')} /> : null
 }
 
-export const success: ComponentStory<typeof Success> = (args) => {
-  return Success ? <Success {...standard()} {...args} /> : <></>
+export const success = () => {
+  return Success ? <Success articles={standard().articles} /> : null
 }
 
 export default { title: 'Cells/ArticlesCell' }
