@@ -9,7 +9,6 @@ const PostPage = ({ id }: PostPageProps) => {
   return (
     <div>
       <PostCell id={id} />
-      <AllowUserCell postId={id} />
     </div>
   )
 }

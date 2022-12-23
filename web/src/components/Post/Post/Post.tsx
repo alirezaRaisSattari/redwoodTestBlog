@@ -4,6 +4,7 @@ import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
+import AllowUserCell from 'src/components/AllowUserCell'
 import { timeTag } from 'src/lib/formatters'
 
 const DELETE_POST_MUTATION = gql`
@@ -60,6 +61,12 @@ const Post = ({ post }: Props) => {
             <tr>
               <th>Created at</th>
               <td>{timeTag(post.createdAt)}</td>
+            </tr>
+            <tr>
+              <th>allowed for</th>
+              <td>
+                <AllowUserCell postId={post.id} />
+              </td>
             </tr>
           </tbody>
         </table>

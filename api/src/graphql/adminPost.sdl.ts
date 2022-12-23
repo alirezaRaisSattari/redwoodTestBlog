@@ -7,6 +7,7 @@ export const schema = gql`
   input CreatePostInput {
     title: String!
     body: String!
+    students: [Int]
   }
 
   input UpdatePostInput {

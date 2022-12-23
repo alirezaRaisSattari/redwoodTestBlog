@@ -11,8 +11,17 @@ export const adminPost = ({ id }) => {
 }
 
 export const createPost = ({ input }) => {
+  const { students, ...postInput } = input
+  console.log(students)
+
   return db.post.create({
-    data: { ...input, userId: context.currentUser.id },
+    data: {
+      ...postInput,
+      allowedUsers: {
+        create: [{ userId: students[0] }, { userId: students[1] }],
+      },
+      userId: context.currentUser.id,
+    },
   })
 }
 
