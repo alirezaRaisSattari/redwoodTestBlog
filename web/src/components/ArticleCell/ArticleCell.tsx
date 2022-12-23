@@ -14,6 +14,9 @@ export const QUERY = gql`
       user {
         name
       }
+      # allowedUsers {
+      #   userId
+      # }
       createdAt
     }
   }

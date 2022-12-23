@@ -9,13 +9,14 @@ generator client {
 }
 
 model Post {
-  id        Int       @id @default(autoincrement())
-  title     String
-  body      String
-  comments  Comment[]
-  createdAt DateTime  @default(now())
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
+  id           Int            @id @default(autoincrement())
+  title        String
+  body         String
+  comments     Comment[]
+  createdAt    DateTime       @default(now())
+  user         User           @relation(fields: [userId], references: [id])
+  userId       Int
+  allowedUsers allowedUsers[]
 }
 
 model Contact {
@@ -26,16 +27,25 @@ model Contact {
   createdAt DateTime @default(now())
 }
 
+model allowedUsers {
+  id     Int  @id @default(autoincrement())
+  post   Post @relation(fields: [postId], references: [id])
+  postId Int
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+}
+
 model User {
-  id                  Int       @id @default(autoincrement())
+  id                  Int            @id @default(autoincrement())
   name                String?
-  email               String    @unique
+  email               String         @unique
   hashedPassword      String
   salt                String
   resetToken          String?
   resetTokenExpiresAt DateTime?
-  roles               String    @default("moderator")
+  roles               String         @default("moderator")
   posts               Post[]
+  allowedUsers        allowedUsers[]
 }
 
 model Comment {
