@@ -27,7 +27,7 @@ export const comments = ({
   return db.comment.findMany({ where: { postId } })
 }
 
-export const comment: QueryResolvers['comment'] = ({ id }) => {
+export const comment = ({ id }) => {
   return db.comment.findUnique({
     where: { id },
   })

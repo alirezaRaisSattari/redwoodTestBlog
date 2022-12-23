@@ -1,3 +1,4 @@
+import AllowUserCell from 'src/components/AllowUserCell'
 import PostCell from 'src/components/Post/PostCell'
 
 type PostPageProps = {
@@ -5,7 +6,12 @@ type PostPageProps = {
 }
 
 const PostPage = ({ id }: PostPageProps) => {
-  return <PostCell id={id} />
+  return (
+    <div>
+      <PostCell id={id} />
+      <AllowUserCell postId={id} />
+    </div>
+  )
 }
 
 export default PostPage

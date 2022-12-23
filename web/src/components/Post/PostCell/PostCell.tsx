@@ -10,6 +10,9 @@ export const QUERY = gql`
       id
       title
       body
+      # allowedUsers {
+      #   userId
+      # }
       createdAt
     }
   }

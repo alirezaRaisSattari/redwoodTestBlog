@@ -8,8 +8,7 @@ export const schema = gql`
   }
 
   type Query {
-    allowedUsers: [AllowedUsers!]! @requireAuth
-    allowedUsers(id: Int!): AllowedUsers @requireAuth
+    allowedUsers(postId: Int!): [AllowedUsers!]! @requireAuth
   }
 
   input CreateAllowedUsersInput {
@@ -17,18 +16,9 @@ export const schema = gql`
     userId: Int!
   }
 
-  input UpdateAllowedUsersInput {
-    postId: Int
-    userId: Int
-  }
-
   type Mutation {
     createAllowedUsers(input: CreateAllowedUsersInput!): AllowedUsers!
       @requireAuth
-    updateAllowedUsers(
-      id: Int!
-      input: UpdateAllowedUsersInput!
-    ): AllowedUsers! @requireAuth
     deleteAllowedUsers(id: Int!): AllowedUsers! @requireAuth
   }
 `

@@ -1,42 +1,20 @@
-import type {
-  QueryResolvers,
-  MutationResolvers,
-  AllowedUsersRelationResolvers,
-} from 'types/graphql'
+import type { AllowedUsersRelationResolvers } from 'types/graphql'
 
 import { db } from 'src/lib/db'
 
-export const allowedUsers: QueryResolvers['allowedUsers'] = () => {
-  return db.allowedUsers.findMany()
-}
-
-export const allowedUsers: QueryResolvers['allowedUsers'] = ({ id }) => {
-  return db.allowedUsers.findUnique({
-    where: { id },
+export const allowedUsers = ({ postId }) => {
+  return db.allowedUsers.findMany({
+    where: { postId },
   })
 }
 
-export const createAllowedUsers: MutationResolvers['createAllowedUsers'] = ({
-  input,
-}) => {
+export const createAllowedUsers = ({ input }) => {
   return db.allowedUsers.create({
     data: input,
   })
 }
 
-export const updateAllowedUsers: MutationResolvers['updateAllowedUsers'] = ({
-  id,
-  input,
-}) => {
-  return db.allowedUsers.update({
-    data: input,
-    where: { id },
-  })
-}
-
-export const deleteAllowedUsers: MutationResolvers['deleteAllowedUsers'] = ({
-  id,
-}) => {
+export const deleteAllowedUsers = ({ id }) => {
   return db.allowedUsers.delete({
     where: { id },
   })

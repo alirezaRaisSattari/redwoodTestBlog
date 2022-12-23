@@ -28,3 +28,11 @@ export const deletePost = ({ id }) => {
     where: { id },
   })
 }
+
+export const AdminPost = ({ id }) => {
+  return db.post
+    .findFirst({
+      where: { id, userId: context.currentUser.id },
+    })
+    .allowedUsers()
+}
