@@ -5,7 +5,9 @@ import type { CellFailureProps } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
+import { QUERY as allowedUsersQuery } from 'src/components/AllowUserListCell'
 import PostForm from 'src/components/Post/PostForm'
+import { QUERY as userQuery } from 'src/components/UsersCell'
 
 export const QUERY = gql`
   query EditPostById($id: Int!) {
@@ -41,6 +43,15 @@ export const Success = ({ post }) => {
       toast.success('Post updated')
       navigate(routes.posts())
     },
+    // refetchQueries: [
+    //   {
+    //     query: userQuery,
+    //   },
+    //   {
+    //     query: allowedUsersQuery,
+    //     variables: { postId: post.id },
+    //   },
+    // ],
     onError: (error) => {
       toast.error(error.message)
     },

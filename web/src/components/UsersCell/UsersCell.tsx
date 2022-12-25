@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 
+import { useAuth } from '@redwoodjs/auth'
 import type { CellFailureProps } from '@redwoodjs/web'
 
 import { Context } from '../Post/PostForm'
@@ -40,6 +41,7 @@ export const Success = ({ users }) => {
     setNotAllowedusers(users)
   }, [])
 
+  const { currentUser } = useAuth()
   const addElement = (item) => {
     const usersTemp = notAllowedusers.filter((e) => e !== item)
     setAddAllowedusers([...addAllowedusers, item])
@@ -51,11 +53,15 @@ export const Success = ({ users }) => {
     setAllowedusers([...allowedusers, item])
     setRemoveAllowedusers(usersTemp)
   }
+  // console.log(context.currentUser.id)
 
   return (
     <ul>
       {notAllowedusers.map((item) => {
-        if (!allowedusers.some((i) => item.id === i.id))
+        if (
+          !allowedusers.some((i) => item.id === i.id) &&
+          item.id !== currentUser.id
+        )
           return (
             <div key={item.id} className="topping">
               <input
