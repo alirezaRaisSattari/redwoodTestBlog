@@ -1,24 +1,24 @@
 export const schema = gql`
   type Query {
-    adminPosts: [Post!]! @requireAuth(roles: ["admin"])
-    adminPost(id: Int!): Post @requireAuth(roles: ["admin"])
+    adminPosts: [Post!]! @requireAuth
+    adminPost(id: Int!): Post @requireAuth
   }
 
   input CreatePostInput {
     title: String!
     body: String!
-    students: [Int]
+    allowedusers: [Int]
   }
 
   input UpdatePostInput {
     title: String
     body: String
+    allowedusers: [Int]
   }
 
   type Mutation {
-    createPost(input: CreatePostInput!): Post! @requireAuth(roles: ["admin"])
-    updatePost(id: Int!, input: UpdatePostInput!): Post!
-      @requireAuth(roles: ["admin"])
-    deletePost(id: Int!): Post! @requireAuth(roles: ["admin"])
+    createPost(input: CreatePostInput!): Post! @requireAuth
+    updatePost(id: Int!, input: UpdatePostInput!): Post! @requireAuth
+    deletePost(id: Int!): Post! @requireAuth
   }
 `

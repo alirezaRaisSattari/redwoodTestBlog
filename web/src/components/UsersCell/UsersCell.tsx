@@ -1,8 +1,6 @@
-import { useState } from 'react'
+import type { CellFailureProps } from '@redwoodjs/web'
 
-import type { UsersQuery } from 'types/graphql'
-
-import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
+import AllowUserCell from '../AllowUserCell'
 
 export const QUERY = gql`
   query UsersQuery {
@@ -21,18 +19,17 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
-export const Success = ({ users, students, setStudents }) => {
+export const Success = ({ users, allowedusers, setStudents }) => {
   React.useEffect(() => {
-    setStudents(students)
+    setStudents(allowedusers)
   }, [])
 
-  console.log(students)
   const addOrRemove = (name) => {
-    const index = students.indexOf(name)
+    const index = allowedusers.indexOf(name)
     if (index === -1) {
-      students.push(name)
+      allowedusers.push(name)
     } else {
-      students.splice(index, 1)
+      allowedusers.splice(index, 1)
     }
   }
   return (

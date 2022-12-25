@@ -1,16 +1,18 @@
 import { db } from 'src/lib/db'
 
 export const posts = () => {
-  return db.post.findMany({
-    where: {
-      OR: [
-        { userId: context.currentUser.id },
-        {
-          allowedUsers: { some: { userId: context.currentUser.id } },
-        },
-      ],
-    },
-  })
+  if (context.currentUser.roles === 'admin') return db.post.findMany()
+  else
+    return db.post.findMany({
+      where: {
+        OR: [
+          { userId: context.currentUser.id },
+          {
+            allowedUsers: { some: { userId: context.currentUser.id } },
+          },
+        ],
+      },
+    })
 }
 
 export const post = ({ id }) => {

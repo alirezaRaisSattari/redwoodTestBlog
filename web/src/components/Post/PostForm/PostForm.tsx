@@ -12,6 +12,7 @@ import {
 } from '@redwoodjs/forms'
 import type { RWGqlError } from '@redwoodjs/forms'
 
+import AllowUserCell from 'src/components/AllowUserCell'
 import UsersCell from 'src/components/UsersCell'
 
 type FormPost = NonNullable<EditPostById['post']>
@@ -24,9 +25,10 @@ interface PostFormProps {
 }
 
 const PostForm = (props: PostFormProps) => {
-  const [students, setStudents] = useState([])
+  const [allowedusers, setStudents] = useState([])
+  // setStudents(props.post?.title)
   const onSubmit = (data: FormPost) => {
-    props.onSave({ ...data, students }, props?.post?.id)
+    props.onSave({ ...data, allowedusers }, props?.post?.id)
   }
 
   return (
@@ -67,7 +69,18 @@ const PostForm = (props: PostFormProps) => {
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
         />
-        <UsersCell setStudents={setStudents} students={students} />
+        <tr>
+          <th>allowed for</th>
+          <td>
+            <AllowUserCell postId={props.post.id} />
+          </td>
+        </tr>
+        <tr>
+          <th>not allowed for</th>
+          <td>
+            <UsersCell setStudents={setStudents} allowedusers={allowedusers} />
+          </td>
+        </tr>
         <FieldError name="body" className="rw-field-error" />
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">
