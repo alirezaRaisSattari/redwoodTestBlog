@@ -28,6 +28,7 @@ const defaultFunc = ({ allowUsers }: CellSuccessProps<any>) => {
     notAllowedusers,
     setNotAllowedusers,
   } = useContext(Context)
+
   React.useEffect(() => {
     setAddAllowedusers(addAllowedusers)
     setRemoveAllowedusers(removeAllowedusers)
