@@ -1,6 +1,8 @@
+import { useContext } from 'react'
+
 import type { CellFailureProps } from '@redwoodjs/web'
 
-import AllowUserCell from '../AllowUserCell'
+import { Context } from '../Post/PostForm'
 
 export const QUERY = gql`
   query UsersQuery {
@@ -19,30 +21,65 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div style={{ color: 'red' }}>Error: {error?.message}</div>
 )
 
-export const Success = ({ users, allowedusers, setStudents }) => {
+export const Success = ({ users }) => {
+  const {
+    addAllowedusers,
+    setAddAllowedusers,
+    removeAllowedusers,
+    setRemoveAllowedusers,
+    allowedusers,
+    setAllowedusers,
+    notAllowedusers,
+    setNotAllowedusers,
+  } = useContext(Context)
+  // const [userlist, setUserlist] = React.useState(users)
   React.useEffect(() => {
-    setStudents(allowedusers)
+    setAddAllowedusers(addAllowedusers)
+    setRemoveAllowedusers(removeAllowedusers)
+    setAllowedusers(allowedusers)
+    setNotAllowedusers(users)
   }, [])
 
-  const addOrRemove = (name) => {
-    const index = allowedusers.indexOf(name)
-    if (index === -1) {
-      allowedusers.push(name)
-    } else {
-      allowedusers.splice(index, 1)
-    }
+  const addElement = (item) => {
+    const usersTemp = notAllowedusers.filter((e) => e !== item)
+    setAddAllowedusers([...addAllowedusers, item])
+    setNotAllowedusers(usersTemp)
   }
+
+  const removeElement = (item) => {
+    const usersTemp = removeAllowedusers.filter((e) => e !== item)
+    setAllowedusers([...allowedusers, item])
+    setRemoveAllowedusers(usersTemp)
+  }
+
   return (
     <ul>
-      {users.map((item) => {
+      {notAllowedusers.map((item) => {
+        if (!allowedusers.some((i) => item.id === i.id))
+          return (
+            <div key={item.id} className="topping">
+              <input
+                type="checkbox"
+                id={'topping'}
+                name="topping"
+                checked={false}
+                value="Paneer"
+                onChange={() => addElement(item)}
+              />
+              {item.name}
+            </div>
+          )
+      })}
+      {removeAllowedusers.map((item) => {
         return (
           <div key={item.id} className="topping">
             <input
               type="checkbox"
               id={'topping'}
               name="topping"
+              checked={false}
               value="Paneer"
-              onChange={() => addOrRemove(item.id)}
+              onChange={() => removeElement(item)}
             />
             {item.name}
           </div>

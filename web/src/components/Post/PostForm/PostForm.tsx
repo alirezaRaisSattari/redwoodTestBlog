@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
 
 import type { EditPostById, UpdatePostInput } from 'types/graphql'
 
@@ -12,8 +12,10 @@ import {
 } from '@redwoodjs/forms'
 import type { RWGqlError } from '@redwoodjs/forms'
 
-import AllowUserCell from 'src/components/AllowUserCell'
+import AllowUserListCell from 'src/components/AllowUserListCell'
 import UsersCell from 'src/components/UsersCell'
+
+export const Context = createContext({})
 
 type FormPost = NonNullable<EditPostById['post']>
 
@@ -24,11 +26,26 @@ interface PostFormProps {
   loading: boolean
 }
 
+export const AddAllowContext = createContext({
+  addedUser: [],
+  setAddedUser: () => {},
+})
+
 const PostForm = (props: PostFormProps) => {
-  const [allowedusers, setStudents] = useState([])
-  // setStudents(props.post?.title)
+  const [addAllowedusers, setAddAllowedusers] = useState([])
+  const [removeAllowedusers, setRemoveAllowedusers] = useState([])
+  const [allowedusers, setAllowedusers] = useState([])
+  const [notAllowedusers, setNotAllowedusers] = useState([])
+
   const onSubmit = (data: FormPost) => {
-    props.onSave({ ...data, allowedusers }, props?.post?.id)
+    props.onSave(
+      {
+        ...data,
+        addAllowedusers: addAllowedusers.map((e) => e.id),
+        allowedusers: allowedusers.map((e) => e.id),
+      },
+      props?.post?.id
+    )
   }
 
   return (
@@ -69,18 +86,33 @@ const PostForm = (props: PostFormProps) => {
           errorClassName="rw-input rw-input-error"
           validation={{ required: true }}
         />
-        <tr>
-          <th>allowed for</th>
-          <td>
-            <AllowUserCell postId={props.post.id} />
-          </td>
-        </tr>
-        <tr>
-          <th>not allowed for</th>
-          <td>
-            <UsersCell setStudents={setStudents} allowedusers={allowedusers} />
-          </td>
-        </tr>
+        <Context.Provider
+          value={{
+            addAllowedusers,
+            setAddAllowedusers,
+            removeAllowedusers,
+            setRemoveAllowedusers,
+            allowedusers,
+            setAllowedusers,
+            notAllowedusers,
+            setNotAllowedusers,
+          }}
+        >
+          <table>
+            <tr>
+              <th>allowed for</th>
+              <td>
+                <AllowUserListCell postId={props.post.id} />
+              </td>
+            </tr>
+            <tr className="mt-6">
+              <th>not allowed for</th>
+              <td>
+                <UsersCell />
+              </td>
+            </tr>
+          </table>
+        </Context.Provider>
         <FieldError name="body" className="rw-field-error" />
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">

@@ -13,7 +13,10 @@ export const schema = gql`
   input UpdatePostInput {
     title: String
     body: String
+    addAllowedusers: [Int]
+    removeAllowedusers: [Int]
     allowedusers: [Int]
+    notAllowedusers: [Int]
   }
 
   type Mutation {

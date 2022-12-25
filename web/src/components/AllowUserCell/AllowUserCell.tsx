@@ -21,7 +21,6 @@ export const Failure = ({ error }: CellFailureProps<any>) => (
 )
 
 export const Success = ({ allowUsers }: CellSuccessProps<any>) => {
-  
   return (
     <div className="space-y-8">
       {allowUsers.map((allowUser) => (

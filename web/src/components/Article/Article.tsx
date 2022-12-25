@@ -16,8 +16,6 @@ interface Props {
 }
 
 const Article = ({ article, summary = false }: Props) => {
-  console.log(9999, article)
-
   return (
     <article className="mt-10">
       <header>

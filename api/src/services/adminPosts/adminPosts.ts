@@ -28,12 +28,31 @@ export const createPost = ({ input }) => {
 }
 
 export const updatePost = ({ id, input }) => {
-  const { allowedusers, ...postInput } = input
+  const {
+    allowedusers,
+    addAllowedusers,
+    notAllowedusers,
+    removeAllowedusers,
+    ...postInput
+  } = input
+  const allowedUsersList = allowedusers?.map((item) => {
+    return { userId: item }
+  })
+  const addAllowedusersList = addAllowedusers?.map((item) => {
+    return { userId: item }
+  })
+  // const notAllowedusersList = notAllowedusers?.map((item) => {
+  //   return { userId: item }
+  // })
+  // const removeAllowedusersList = removeAllowedusers?.map((item) => {
+  //   return { userId: item }
+  // })
   return db.post.update({
     data: {
       ...postInput,
       allowedUsers: {
-        create: [{ userId: allowedusers[0] }, { userId: allowedusers[1] }],
+        deleteMany: { postId: postInput.id },
+        create: [...addAllowedusersList, ...allowedUsersList],
       },
       userId: context.currentUser.id,
     },
