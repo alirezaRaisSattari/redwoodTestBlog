@@ -7,6 +7,7 @@ export const schema = gql`
   input CreatePostInput {
     title: String!
     body: String!
+    addAllowedusers: [Int]
     allowedusers: [Int]
   }
 
@@ -14,9 +15,7 @@ export const schema = gql`
     title: String
     body: String
     addAllowedusers: [Int]
-    removeAllowedusers: [Int]
     allowedusers: [Int]
-    notAllowedusers: [Int]
   }
 
   type Mutation {

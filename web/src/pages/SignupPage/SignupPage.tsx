@@ -76,6 +76,10 @@ const SignupPage = () => {
                         value: true,
                         message: 'Email is required',
                       },
+                      pattern: {
+                        value: /^[^@]+@[^.]+\..+$/,
+                        message: 'Please enter a valid email address',
+                      },
                     }}
                   />
                   <FieldError name="username" className="rw-field-error" />

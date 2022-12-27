@@ -102,7 +102,7 @@ const PostForm = (props: PostFormProps) => {
             <tr>
               <th>allowed for</th>
               <td>
-                <AllowUserListCell postId={props.post.id} />
+                <AllowUserListCell postId={props?.post?.id ?? -1} />
               </td>
             </tr>
             <tr className="mt-6">

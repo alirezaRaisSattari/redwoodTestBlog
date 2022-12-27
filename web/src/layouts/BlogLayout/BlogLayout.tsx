@@ -49,11 +49,11 @@ const BlogLayout = ({ children }) => {
               )}
             </li>
           </ul>
-          {/* {isAuthenticated && (
+          {isAuthenticated && (
             <div className="absolute bottom-1 right-0 mr-12 text-xs text-blue-300">
-              {currentUser.email}
+              {currentUser.name}
             </div>
-          )} */}
+          )}
         </nav>
       </header>
       <main className="mx-auto max-w-4xl rounded-b bg-white p-12 shadow">

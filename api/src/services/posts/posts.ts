@@ -1,3 +1,4 @@
+import { requireAuth } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 export const posts = () => {
@@ -15,10 +16,26 @@ export const posts = () => {
     })
 }
 
-export const post = ({ id }) => {
-  return db.post.findUnique({
-    where: { id },
-  })
+export const post = async ({ id }) => {
+  if (context.currentUser.roles === 'admin')
+    return db.post.findUnique({
+      where: { id },
+    })
+  else {
+    const foundedPost = await db.post.findMany({
+      where: {
+        OR: [
+          { id, userId: context.currentUser.id },
+          {
+            id,
+            allowedUsers: { some: { userId: context.currentUser.id } },
+          },
+        ],
+      },
+    })
+    if (!foundedPost.length) requireAuth({ roles: 'admin' })
+    return foundedPost
+  }
 }
 
 export const Post = {

@@ -11,16 +11,19 @@ export const adminPost = ({ id }) => {
 }
 
 export const createPost = ({ input }) => {
-  const { allowedusers, ...postInput } = input
+  const { allowedusers, addAllowedusers, ...postInput } = input
 
   const allowedUsersList = allowedusers?.map((item) => {
+    return { userId: item }
+  })
+  const addAllowedusersList = addAllowedusers?.map((item) => {
     return { userId: item }
   })
   return db.post.create({
     data: {
       ...postInput,
       allowedUsers: {
-        create: allowedUsersList ?? [],
+        create: [...addAllowedusersList, ...allowedUsersList] ?? [],
       },
       userId: context.currentUser.id,
     },
@@ -28,25 +31,13 @@ export const createPost = ({ input }) => {
 }
 
 export const updatePost = ({ id, input }) => {
-  const {
-    allowedusers,
-    addAllowedusers,
-    notAllowedusers,
-    removeAllowedusers,
-    ...postInput
-  } = input
+  const { allowedusers, addAllowedusers, ...postInput } = input
   const allowedUsersList = allowedusers?.map((item) => {
     return { userId: item }
   })
   const addAllowedusersList = addAllowedusers?.map((item) => {
     return { userId: item }
   })
-  // const notAllowedusersList = notAllowedusers?.map((item) => {
-  //   return { userId: item }
-  // })
-  // const removeAllowedusersList = removeAllowedusers?.map((item) => {
-  //   return { userId: item }
-  // })
   return db.post.update({
     data: {
       ...postInput,
@@ -62,6 +53,7 @@ export const updatePost = ({ id, input }) => {
 
 export const deletePost = async ({ id }) => {
   await db.allowedUsers.deleteMany({ where: { postId: id } })
+  await db.comment.deleteMany({ where: { postId: id } })
   return db.post.delete({
     where: { id },
   })
