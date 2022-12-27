@@ -49,11 +49,17 @@ const BlogLayout = ({ children }) => {
               )}
             </li>
           </ul>
-          {isAuthenticated && (
-            <div className="absolute bottom-1 right-0 mr-12 text-xs text-blue-300">
-              {currentUser.name}
-            </div>
-          )}
+        </nav>
+        <nav>
+          <ul className="relative flex items-center font-light">
+            <li>
+              {isAuthenticated && (
+                <div className="rounded py-2 px-4 pl-36">
+                  welcome {currentUser.name}
+                </div>
+              )}
+            </li>
+          </ul>
         </nav>
       </header>
       <main className="mx-auto max-w-4xl rounded-b bg-white p-12 shadow">
