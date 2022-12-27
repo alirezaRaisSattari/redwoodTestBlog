@@ -52,8 +52,6 @@ export const updatePost = ({ id, input }) => {
 }
 
 export const deletePost = async ({ id }) => {
-  await db.allowedUsers.deleteMany({ where: { postId: id } })
-  await db.comment.deleteMany({ where: { postId: id } })
   return db.post.delete({
     where: { id },
   })

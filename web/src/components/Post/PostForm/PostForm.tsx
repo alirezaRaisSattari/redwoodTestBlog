@@ -98,20 +98,10 @@ const PostForm = (props: PostFormProps) => {
             setNotAllowedusers,
           }}
         >
-          <table>
-            <tr>
-              <th>allowed for</th>
-              <td>
-                <AllowUserListCell postId={props?.post?.id ?? -1} />
-              </td>
-            </tr>
-            <tr className="mt-6">
-              <th>not allowed for</th>
-              <td>
-                <UsersCell />
-              </td>
-            </tr>
-          </table>
+          <h3 className="rw-label">allowed for:</h3>
+          <AllowUserListCell postId={props?.post?.id ?? -1} />
+          <h3 className="rw-label">not allowed for:</h3>
+          <UsersCell />
         </Context.Provider>
         <FieldError name="body" className="rw-field-error" />
         <div className="rw-button-group">

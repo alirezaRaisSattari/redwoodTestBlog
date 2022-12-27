@@ -22,7 +22,7 @@ CREATE TABLE "allowedUsers" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "postId" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
-    CONSTRAINT "allowedUsers_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "allowedUsers_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "allowedUsers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -45,7 +45,7 @@ CREATE TABLE "Comment" (
     "body" TEXT NOT NULL,
     "postId" INTEGER NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT "Comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Comment_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 -- CreateIndex
